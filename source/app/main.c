@@ -13,6 +13,7 @@
 #include "dma.h"
 #include "tim.h"
 #include "crc.h"
+#include "adc.h"
 
 #include "main_state.h"
 
@@ -88,11 +89,24 @@ static void MX_TIM_Init(void)
 
     /* TIM2: Measurement Timer Source to obtain 32-bit width micro-seconds timer */
     MX_TIM2_Init();
+
+    /* TIM3: Start Siren Timer */
+    MX_TIM3_Init();
+
+    /* TIM4: Start Dimming Timer */
+    MX_TIM4_Init();
+    MX_TIM8_Init();
 }
 
 static void MX_ADC_Init(void)
 {
+    /* Init ADC 1 and 2 for Poti reading */
+    MX_ADC1_Init();
+    MX_ADC2_Init();
 
+    /* Start ADC1 and ADC2 */
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_Start(&hadc2);
 }
 
 /*******************************************************************************

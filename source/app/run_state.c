@@ -43,6 +43,9 @@
 * Static Variables
 *******************************************************************************/
 
+uint8_t buzzerRunning = 0;
+
+
 static bool RunState_Cyclic_SelfTest(RunState const* pRunState, bool* pError)
 {
     bool finished = false;
@@ -142,6 +145,27 @@ void RunState_Cyclic(RunState* const pThis)
     {
         RunState_Cyclic_Error(pThis);
     }
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+
+    if (GPIO_Pin == GPIO_PIN_10)
+    {
+        if (buzzerRunning == 1)
+        {
+            HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);
+            buzzerRunning = 0;
+        }
+
+        else if (buzzerRunning == 0)
+        {
+            HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+            buzzerRunning = 1;
+        }
+
+    }
+
 }
 
 

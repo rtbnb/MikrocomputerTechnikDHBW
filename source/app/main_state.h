@@ -56,6 +56,7 @@ typedef struct
 
     /*! Number of MainState calls */
     uint32_t cycleCounter;
+    uint8_t buzzing;
 } MainState_Data;
 
 /*! Structure definition of MainState object */
